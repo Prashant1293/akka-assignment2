@@ -1,28 +1,5 @@
 [0m[[0minfo[0m] [0m[32mRetailOutletSpec:[0m[0m
-[0m[[0minfo[0m] [0m[32mA Purchase Request Handler Actor [0m[0m
-[0m[[0minfo[0m] [0m[31m- must Not Allow User To Purchase More Than 1 Item At A Time  *** FAILED ***[0m[0m
-[0m[[0minfo[0m] [0m[31m  java.lang.AssertionError: assertion failed: timeout (3 seconds) during expectMsg:[0m[0m
-[0m[[0minfo[0m] [0m[31m  at scala.Predef$.assert(Predef.scala:219)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at akka.testkit.TestKitBase.expectMsgPF(TestKit.scala:405)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at akka.testkit.TestKitBase.expectMsgPF$(TestKit.scala:402)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at akka.testkit.TestKit.expectMsgPF(TestKit.scala:814)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at RetailOutletSpec.$anonfun$new$2(RetailOutletSpec.scala:21)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.OutcomeOf.outcomeOf(OutcomeOf.scala:85)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.OutcomeOf.outcomeOf$(OutcomeOf.scala:83)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.OutcomeOf$.outcomeOf(OutcomeOf.scala:104)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.Transformer.apply(Transformer.scala:22)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.Transformer.apply(Transformer.scala:20)[0m[0m
-[0m[[0minfo[0m] [0m[31m  ...[0m[0m
-[0m[[0minfo[0m] [0m[31m- must Allow User To Go Through Validation If 1 Item Is Required By The User *** FAILED ***[0m[0m
-[0m[[0minfo[0m] [0m[31m  java.lang.AssertionError: assertion failed: timeout (3 seconds) during expectMsg:[0m[0m
-[0m[[0minfo[0m] [0m[31m  at scala.Predef$.assert(Predef.scala:219)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at akka.testkit.TestKitBase.expectMsgPF(TestKit.scala:405)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at akka.testkit.TestKitBase.expectMsgPF$(TestKit.scala:402)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at akka.testkit.TestKit.expectMsgPF(TestKit.scala:814)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at RetailOutletSpec.$anonfun$new$3(RetailOutletSpec.scala:33)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.OutcomeOf.outcomeOf(OutcomeOf.scala:85)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.OutcomeOf.outcomeOf$(OutcomeOf.scala:83)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.OutcomeOf$.outcomeOf(OutcomeOf.scala:104)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.Transformer.apply(Transformer.scala:22)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.Transformer.apply(Transformer.scala:20)[0m[0m
-[0m[[0minfo[0m] [0m[31m  ...[0m[0m
+[0m[[0minfo[0m] [0m[32mPurchaseRequestActor[0m[0m
+[0m[[0minfo[0m] [0m[32m- must Invalid request[0m[0m
+[0m[[0minfo[0m] [0m[32m- must Success Request[0m[0m
+[0m[[0minfo[0m] [0m[32m- must Respond when user is asking for more than one item[0m[0m

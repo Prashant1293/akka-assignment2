@@ -1,0 +1,41 @@
+[0m[[0minfo[0m] [0m[32mFlipkartSpec:[0m[0m
+[0m[[0minfo[0m] [0m[32mPurchaseRequestHandler[0m[0m
+[0m[[0minfo[0m] [0m[31m- must Invalid request *** FAILED ***[0m[0m
+[0m[[0minfo[0m] [0m[31m  java.lang.IllegalArgumentException: no matching constructor found on class PurchaseRequestActor for arguments [][0m[0m
+[0m[[0minfo[0m] [0m[31m  at akka.util.Reflect$.error$1(Reflect.scala:81)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at akka.util.Reflect$.findConstructor(Reflect.scala:105)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at akka.actor.NoArgsReflectConstructor.<init>(IndirectActorProducer.scala:103)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at akka.actor.IndirectActorProducer$.apply(IndirectActorProducer.scala:60)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at akka.actor.Props.producer(Props.scala:131)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at akka.actor.Props.<init>(Props.scala:144)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at akka.actor.Props$.apply(Props.scala:62)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at FlipkartSpec.$anonfun$new$2(RetailOutletSpec.scala:30)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.scalatest.OutcomeOf.outcomeOf(OutcomeOf.scala:85)[0m[0m
+[0m[[0minfo[0m] [0m[31m  ...[0m[0m
+[0m[[0minfo[0m] [0m[31m- must Success Request *** FAILED ***[0m[0m
+[0m[[0minfo[0m] [0m[31m  java.lang.IllegalArgumentException: no matching constructor found on class PurchaseRequestActor for arguments [][0m[0m
+[0m[[0minfo[0m] [0m[31m  at akka.util.Reflect$.error$1(Reflect.scala:81)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at akka.util.Reflect$.findConstructor(Reflect.scala:105)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at akka.actor.NoArgsReflectConstructor.<init>(IndirectActorProducer.scala:103)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at akka.actor.IndirectActorProducer$.apply(IndirectActorProducer.scala:60)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at akka.actor.Props.producer(Props.scala:131)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at akka.actor.Props.<init>(Props.scala:144)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at akka.actor.Props$.apply(Props.scala:62)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at FlipkartSpec.$anonfun$new$4(RetailOutletSpec.scala:41)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.scalatest.OutcomeOf.outcomeOf(OutcomeOf.scala:85)[0m[0m
+[0m[[0minfo[0m] [0m[31m  ...[0m[0m
+[0m[[0minfo[0m] [0m[31m- must Respond when user is asking for more than one item *** FAILED ***[0m[0m
+[0m[[0minfo[0m] [0m[31m  java.lang.IllegalArgumentException: no matching constructor found on class PurchaseRequestActor for arguments [][0m[0m
+[0m[[0minfo[0m] [0m[31m  at akka.util.Reflect$.error$1(Reflect.scala:81)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at akka.util.Reflect$.findConstructor(Reflect.scala:105)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at akka.actor.NoArgsReflectConstructor.<init>(IndirectActorProducer.scala:103)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at akka.actor.IndirectActorProducer$.apply(IndirectActorProducer.scala:60)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at akka.actor.Props.producer(Props.scala:131)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at akka.actor.Props.<init>(Props.scala:144)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at akka.actor.Props$.apply(Props.scala:62)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at FlipkartSpec.$anonfun$new$6(RetailOutletSpec.scala:52)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.scalatest.OutcomeOf.outcomeOf(OutcomeOf.scala:85)[0m[0m
+[0m[[0minfo[0m] [0m[31m  ...[0m[0m

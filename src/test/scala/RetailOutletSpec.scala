@@ -1,64 +1,62 @@
+import akka.actor.{ActorSystem, Props}
+import akka.testkit._
+import org.scalatest.{BeforeAndAfterAll, MustMatchers, WordSpecLike}
+import com.typesafe.config.ConfigFactory
 
-import akka.actor.{Actor, ActorSystem, Props}
-import org.scalatest.{BeforeAndAfterAll, Matchers, MustMatchers, WordSpecLike}
-import akka.actor.ActorSystem
-import akka.testkit.{ImplicitSender, TestActorRef, TestActors, TestKit}
 
+object RetailOutletSpec {
 
-class RetailOutletSpec extends TestKit(ActorSystem("Book")) with WordSpecLike
-  with BeforeAndAfterAll with MustMatchers {
+  val testSystem = {
+    val config = ConfigFactory.parseString(
+      """
+        |akka.loggers = [akka.testkit.TestEventListener]
+      """.stripMargin
+    )
+    ActorSystem("test-system", config)
+  }
+}
+import RetailOutletSpec._
+
+class RetailOutletSpec extends TestKit(testSystem) with WordSpecLike
+  with BeforeAndAfterAll with MustMatchers with ImplicitSender {
 
   override protected def afterAll(): Unit = {
     system.terminate()
   }
 
+  "PurchaseRequestActor" must {
+    "Invalid request" in {
+      val dispatcherId = CallingThreadDispatcher.Id
+      val props = Props[PurchaseRequestActor].withDispatcher(dispatcherId)
 
-    "A Purchase Request Handler Actor " must {
-      "Not Allow User To Purchase More Than 1 Item At A Time " in {
-        val ref = system.actorOf(Props(classOf[PurchaseRequestHandler], testActor))
-        ref tell((2,Customer("Anmol", "Delhi", "1234567890", "9999950386")), testActor)
-
-        expectMsgPF() {
-          case errorMsg: String =>
-            errorMsg must be("Sry you cannot book more than one...")
-        }
-
-
-      }
-
-      "Allow User To Go Through Validation If 1 Item Is Required By The User" in {
-        val ref = system.actorOf(Props(classOf[PurchaseRequestHandler], testActor))
-        ref tell((1,Customer("Anmol", "Delhi", "1234567890", "9999950386")), testActor)
-
-        expectMsgPF() {
-          case (itemCount: Int,person: Customer) =>
-            (person: Customer, itemCount: Int) must be(1,Customer("Anmol", "Delhi", "1234567890", "9999950386"))
-        }
+      val ref = system.actorOf(props)
+      //val ref = TestActorRef[Validate]
+      EventFilter.info(message = "Unknown Request", occurrences = 1).intercept {
+        ref ! "hi"
       }
     }
 
-//  "A ValidationActor" must {
-//    "Deny Booking if there is no item left in store " in {
-//      val ref = system.actorOf(Props(classOf[ValidationActor], testActor))
-//      ref tell((10,Customer("Anmol", "Delhi", "1234567890", "9999950386l")), testActor)
-//
-//      expectMsgPF() {
-//        case errorMsg: String =>
-//          errorMsg must be("Sorry Out of stock....!!")
-//      }
-//    }
+    "Success Request" in {
+      val dispatcherId = CallingThreadDispatcher.Id
+      val props = Props[PurchaseRequestActor].withDispatcher(dispatcherId)
 
-//    "Respond when there is enough item to sell in store " in {
-//      val ref = system.actorOf(Props(classOf[ValidationActor], testActor))
-//      ref tell((1,Customer("Anmol", "Delhi", "1234567890", "9999950386")), testActor)
-//
-//      expectMsgPF() {
-//        case person: Customer =>
-//          person must be(Customer("Anmol", "Delhi", "1234567890", "9999950386"))
-//      }
-//    }
-//  }
+      val ref = system.actorOf(props)
+      //val ref = TestActorRef[Validate]
+      EventFilter.info(message = "Request Initiated", occurrences = 1).intercept {
+        ref ! (1, Customer("", "", "", ""))
+      }
+    }
+
+    "Respond when user is asking for more than one item" in {
+      val dispatcherId = CallingThreadDispatcher.Id
+      val props = Props[PurchaseRequestActor].withDispatcher(dispatcherId)
+
+      val ref = system.actorOf(props)
+      //val ref = TestActorRef[Validate]
+      EventFilter.info(message = "Sry you cannot book more than one...", occurrences = 1).intercept {
+        ref ! (2, Customer("", "", "", ""))
+      }
+    }
+  }
 
 }
-
-

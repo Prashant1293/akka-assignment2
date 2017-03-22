@@ -1,49 +1,50 @@
 import akka.actor.{Actor, ActorLogging, ActorRef, ActorSystem, Props}
-import akka.routing.FromConfig
 import com.typesafe.config.ConfigFactory
 import akka.pattern.ask
 import akka.util.Timeout
-
 import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
-import org.apache.log4j.Logger
-
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.duration.DurationInt
+import akka.routing.FromConfig
 
 object RetailOutlet extends App {
-
+   val no_of_request=1
   val system = ActorSystem("Book")
   val props = Props[PurchaseRequestHandler]
   val router = system.actorOf(props)
-  val no_of_request = 1
-  for (i <- 1 to 10)
-    router ! (no_of_request, Customer("Akhil", "Delhi", "1900234576876594", "8877033455"))
+  //for(i <- 1 to 10)
+  router ! (no_of_request,Customer("Prashant","Delhi","1800237976832547","8457033478"))
+  router ! (no_of_request,Customer("Kunal","Delhi","1800237976832547","8457033478"))
+  router ! (no_of_request,Customer("abc","Delhi","1800237976832547","8457033478"))
+  router ! (no_of_request,Customer("Akhil","Delhi","1900234576876594","8877033455"))
+  router ! (no_of_request,Customer("Mahesh","Delhi","1800237976832547","8457033478"))
 
 }
 
-case class Customer(cus_name: String, address: String, credit_card_no: String, mobile_no: String)
+case class Customer(cus_name:String,address:String,credit_card_no:String,mobile_no:String)
 
-class PurchaseRequestHandler(ref: ActorRef) extends Actor with ActorLogging {
+class PurchaseRequestHandler extends Actor with ActorLogging{
 
   val validate = context.actorOf(Props[ValidationActor])
-  //val str="Sry you cannot book more than one..."
   override def receive = {
-    case (no_of_request, user: Customer) => {
-      log.info("Inside PurchaseRequestHandler Actor\n")
-     // println("Request Initialized")
-      if (no_of_request == 1) {
 
-        validate forward  user
+    case (no_of_request,user:Customer)=>{
+
+      if(no_of_request==1)
+      {
+
+        validate ! user
       }
-      else sender() ! "Sry you cannot book more than one..."
+      else{
+        log.error("Sry you cannot book more than one...")
+      }
     }
   }
 }
 
-class ValidationActor extends Actor with ActorLogging {
+class ValidationActor extends Actor with ActorLogging{
 
-  var count = 8
+  var count=3
+
   val config = ConfigFactory.parseString(
     """
       |akka.actor.deployment {
@@ -55,44 +56,32 @@ class ValidationActor extends Actor with ActorLogging {
     """.stripMargin
   )
 
-  val system = ActorSystem("RouterSystem", config)
-  val purchase = system.actorOf(FromConfig.props(Props[PurchaseActor]), "poolRouter")
+  val purchase = context.actorOf(Props[PurchaseActor],"poolRouter")
+  override def receive={
 
-  override def receive = {
-    case user: Customer => {
-      if (count > 0) {
-        println("Validate")
-        count -= 1
-        purchase ! user
+    case user:Customer=>{
+
+      if(count>0){
+        count-=1
+        implicit val timeout = Timeout(1000 seconds)
+        val f=purchase ? user
+        Await.result(f,timeout.duration)
       }
-      else {
-        println(s"Sorry Out of stock....!!")
+      else{
+        log.error(s"Sorry Out of stock....!!")
       }
     }
   }
 }
+class PurchaseActor extends Actor with ActorLogging{
 
-class PurchaseActor extends Actor with ActorLogging  {
-
-  val purchase = context.actorOf(Props[Purchase])
-
-  override def receive = {
-    case user: Customer => {
-      implicit val timeout = Timeout(5000 seconds)
-      val f = purchase ask user
-      Await.result(f, timeout.duration)
-    }
-  }
-}
-
-class Purchase extends Actor with ActorLogging  {
-
-  override def receive = {
-    case user: Customer => {
-      println("Thanks for booking !!, your details are...")
-      println("Name=", user.cus_name)
-      println("Address=", user.address)
-      println("Mobile=", user.mobile_no)
+  override def receive={
+    case user:Customer=> {
+      log.info("Thanks for booking !!, your details are...")
+      log.info(s"Name= ${user.cus_name}")
+      log.info(s"Address=${user.address}")
+      log.info(s"Mobile= ${user.mobile_no}")
+      sender() ! "Ok"
     }
   }
 }

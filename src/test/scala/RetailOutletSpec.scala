@@ -1,7 +1,3 @@
-/**
-  * Created by prashant on 21/3/17.
-  */
-
 
 import akka.actor.{Actor, ActorSystem, Props}
 import org.scalatest.{BeforeAndAfterAll, Matchers, MustMatchers, WordSpecLike}
@@ -16,8 +12,9 @@ class RetailOutletSpec extends TestKit(ActorSystem("Book")) with WordSpecLike
     system.terminate()
   }
 
+
     "A Purchase Request Handler Actor " must {
-      "Validate The User Request " in {
+      "Not Allow User To Purchase More Than 1 Item At A Time " in {
         val ref = system.actorOf(Props(classOf[PurchaseRequestHandler], testActor))
         ref tell((2,Customer("Anmol", "Delhi", "1234567890", "9999950386")), testActor)
 
@@ -28,25 +25,40 @@ class RetailOutletSpec extends TestKit(ActorSystem("Book")) with WordSpecLike
 
 
       }
+
+      "Allow User To Go Through Validation If 1 Item Is Required By The User" in {
+        val ref = system.actorOf(Props(classOf[PurchaseRequestHandler], testActor))
+        ref tell((1,Customer("Anmol", "Delhi", "1234567890", "9999950386")), testActor)
+
+        expectMsgPF() {
+          case (itemCount: Int,person: Customer) =>
+            (person: Customer, itemCount: Int) must be(1,Customer("Anmol", "Delhi", "1234567890", "9999950386"))
+        }
+      }
     }
+
+//  "A ValidationActor" must {
+//    "Deny Booking if there is no item left in store " in {
+//      val ref = system.actorOf(Props(classOf[ValidationActor], testActor))
+//      ref tell((10,Customer("Anmol", "Delhi", "1234567890", "9999950386l")), testActor)
+//
+//      expectMsgPF() {
+//        case errorMsg: String =>
+//          errorMsg must be("Sorry Out of stock....!!")
+//      }
+//    }
+
+//    "Respond when there is enough item to sell in store " in {
+//      val ref = system.actorOf(Props(classOf[ValidationActor], testActor))
+//      ref tell((1,Customer("Anmol", "Delhi", "1234567890", "9999950386")), testActor)
+//
+//      expectMsgPF() {
+//        case person: Customer =>
+//          person must be(Customer("Anmol", "Delhi", "1234567890", "9999950386"))
+//      }
+//    }
+//  }
+
 }
 
-
-//class EchoActorSpec() extends TestKit(ActorSystem("EchoActor")) with ImplicitSender
-//  with WordSpecLike with Matchers with BeforeAndAfterAll {
-//
-//  override def afterAll {
-//    TestKit.shutdownActorSystem(system)
-//  }
-//
-//  "An Echo actor" must {
-//
-//    "send back messages unchanged" in {
-//      val echo = system.actorOf(TestActors.echoActorProps)
-//      echo ! "hello world"
-//      expectMsg("hello world")
-//    }
-//
-//  }
-//}
 

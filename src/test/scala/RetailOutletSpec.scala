@@ -5,7 +5,6 @@ import com.typesafe.config.ConfigFactory
 import akka.pattern.ask
 import akka.util.Timeout
 import scala.concurrent.duration._
-import scala.concurrent.Await
 import scala.util.Success
 
 
@@ -20,6 +19,7 @@ object RetailOutletSpec {
     ActorSystem("test-system", config)
   }
 }
+
 import RetailOutletSpec._
 
 class RetailOutletSpec extends TestKit(testSystem) with WordSpecLike
@@ -29,74 +29,63 @@ class RetailOutletSpec extends TestKit(testSystem) with WordSpecLike
     system.terminate()
   }
 
-  "PurchaseRequestHandler" must {
-    "Invalid request" in {
+  "PurchaseRequestActor" must {
+    "Invalidate the request" in {
       val dispatcherId = CallingThreadDispatcher.Id
       val props = Props[PurchaseRequestActor].withDispatcher(dispatcherId)
-
       val ref = system.actorOf(props)
-      //val ref = TestActorRef[Validate]
       EventFilter.info(message = "Unknown Request", occurrences = 1).intercept {
         ref ! "Unknown obj asked"
       }
     }
 
-    "Success Request" in {
+    "Successfully initiate Request" in {
       val dispatcherId = CallingThreadDispatcher.Id
       val props = Props[PurchaseRequestActor].withDispatcher(dispatcherId)
 
       val ref = system.actorOf(props)
-      //val ref = TestActorRef[Validate]
       EventFilter.info(message = "Request Initiated", occurrences = 1).intercept {
-        ref ! (1,Customer("","","",""))
+        ref ! (1,Customer("Prashant", "Delhi", "1800237976832547", "8457033478"))
       }
     }
 
-    "Respond when user is asking for more than one item" in {
+    "Deny when user is asking for more than one item" in {
       val dispatcherId = CallingThreadDispatcher.Id
       val props = Props[PurchaseRequestActor].withDispatcher(dispatcherId)
 
       val ref = system.actorOf(props)
-      //val ref = TestActorRef[Validate]
       EventFilter.info(message = "Sry you cannot book more than one...", occurrences = 1).intercept {
-        ref ! (2,Customer("","","",""))
+        ref ! (2,Customer("Prashant", "Delhi", "1800237976832547", "8457033478"))
       }
     }
   }
 
   "ValidationActor" must {
 
-    "handling out of stock" in {
+    "handle if item is out of stock" in {
 
       val ref = TestActorRef[ValidationActor]
       ref.underlyingActor.count = 0
-
       EventFilter.info(message = "Sorry Out of stock....!!", occurrences = 1).intercept {
-        ref ! (Customer("", "", "", ""))
+        ref ! (Customer("Prashant", "Delhi", "1800237976832547", "8457033478"))
       }
     }
 
-    "Validating request" in {
+    "Validate the request" in {
       val ref = TestActorRef[ValidationActor]
       val ref2 = TestActorRef[PurchaseActor]
       ref.underlyingActor.count = 8
       implicit val timeout = Timeout(1000 seconds)
-      val future=ref2 ? Customer("","","","")
-
+      val future=ref2 ? Customer("Prashant", "Delhi", "1800237976832547", "8457033478")
       val Success(result:String) = future.value.get
-
       result must be ("Ok")
-      //    EventFilter.info(message = "In Stock", occurrences = 1).intercept {
-      //      ref ! (Customer("", "", "", ""))
-      //    }
     }
 
-    "Invalid Details" in {
+    "Respond to user providing Invalid Details" in {
       val dispatcherId = CallingThreadDispatcher.Id
       val props = Props[ValidationActor].withDispatcher(dispatcherId)
 
       val ref = system.actorOf(props)
-      //val ref = TestActorRef[Validate]
       EventFilter.info(message = "Invalid UserDetails", occurrences = 1).intercept {
         ref ! ""
       }
@@ -105,23 +94,21 @@ class RetailOutletSpec extends TestKit(testSystem) with WordSpecLike
   }
 
   "PurchaseActor" must {
-    "Booking Details" in {
+    "provide with the Booking Details For User " in {
       val dispatcherId = CallingThreadDispatcher.Id
       val props = Props[PurchaseActor].withDispatcher(dispatcherId)
 
       val ref = system.actorOf(props)
-      //val ref = TestActorRef[Validate]
       EventFilter.info(message = "Thanks for booking !!, your details are...", occurrences = 1).intercept {
-        ref ! (Customer("", "", "", ""))
+        ref ! (Customer("Prashant", "Delhi", "1800237976832547", "8457033478"))
       }
     }
 
-    "Invalid Details" in {
+    "Respond to User's Invalid Details" in {
       val dispatcherId = CallingThreadDispatcher.Id
       val props = Props[PurchaseActor].withDispatcher(dispatcherId)
 
       val ref = system.actorOf(props)
-      //val ref = TestActorRef[Validate]
       EventFilter.info(message = "Wrong User Details", occurrences = 1).intercept {
         ref ! ""
       }

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 <coverage 
-line-rate="1.00" lines-valid="59" lines-covered="59" branches-valid="4" branches-covered="4" branch-rate="1.00" complexity="0" version="1.0" timestamp="1490247737092">
+line-rate="1.00" lines-valid="59" lines-covered="59" branches-valid="4" branches-covered="4" branch-rate="1.00" complexity="0" version="1.0" timestamp="1490249913174">
     <sources>
         <source>--source</source>
         <source>/home/prashant/IdeaProjects/akka2/src/main/scala-2.12</source>

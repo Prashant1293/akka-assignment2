@@ -1,12 +1,12 @@
 [0m[[0minfo[0m] [0m[32mRetailOutletSpec:[0m[0m
-[0m[[0minfo[0m] [0m[32mPurchaseRequestHandler[0m[0m
-[0m[[0minfo[0m] [0m[32m- must Invalid request[0m[0m
-[0m[[0minfo[0m] [0m[32m- must Success Request[0m[0m
-[0m[[0minfo[0m] [0m[32m- must Respond when user is asking for more than one item[0m[0m
+[0m[[0minfo[0m] [0m[32mPurchaseRequestActor[0m[0m
+[0m[[0minfo[0m] [0m[32m- must Invalidate the request[0m[0m
+[0m[[0minfo[0m] [0m[32m- must Successfully initiate Request[0m[0m
+[0m[[0minfo[0m] [0m[32m- must Deny when user is asking for more than one item[0m[0m
 [0m[[0minfo[0m] [0m[32mValidationActor[0m[0m
-[0m[[0minfo[0m] [0m[32m- must handling out of stock[0m[0m
-[0m[[0minfo[0m] [0m[32m- must Validating request[0m[0m
-[0m[[0minfo[0m] [0m[32m- must Invalid Details[0m[0m
+[0m[[0minfo[0m] [0m[32m- must handle if item is out of stock[0m[0m
+[0m[[0minfo[0m] [0m[32m- must Validate the request[0m[0m
+[0m[[0minfo[0m] [0m[32m- must Respond to user providing Invalid Details[0m[0m
 [0m[[0minfo[0m] [0m[32mPurchaseActor[0m[0m
-[0m[[0minfo[0m] [0m[32m- must Booking Details[0m[0m
-[0m[[0minfo[0m] [0m[32m- must Invalid Details[0m[0m
+[0m[[0minfo[0m] [0m[32m- must provide with the Booking Details For User [0m[0m
+[0m[[0minfo[0m] [0m[32m- must Respond to User's Invalid Details[0m[0m

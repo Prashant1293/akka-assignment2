@@ -7,7 +7,7 @@
 		revision="1.0"
 		conf="provided"
 		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool, scoveragePlugin"
-		date="20170323111215"/>
+		date="20170323114831"/>
 	<dependencies>
 	</dependencies>
 </ivy-report>

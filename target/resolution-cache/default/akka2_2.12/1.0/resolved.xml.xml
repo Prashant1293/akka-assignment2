@@ -4,7 +4,7 @@
 		module="akka2_2.12"
 		revision="1.0"
 		status="integration"
-		publication="20170322182219"
+		publication="20170323111215"
 	>
 		<description>
 		akka2
@@ -24,6 +24,7 @@
 		<conf name="docs" visibility="public" description=""/>
 		<conf name="pom" visibility="public" description=""/>
 		<conf name="scala-tool" visibility="private" description=""/>
+		<conf name="scoveragePlugin" visibility="private" description=""/>
 	</configurations>
 	<publications>
 		<artifact name="akka2_2.12" type="pom" ext="pom" conf="pom"/>

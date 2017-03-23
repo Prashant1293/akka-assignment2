@@ -4,21 +4,20 @@ import akka.pattern.ask
 import akka.util.Timeout
 import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
-import akka.routing.FromConfig
 
-object RetailOutlet extends App {
-  val no_of_request = 1
-  val system = ActorSystem("Book")
-  val props = Props[PurchaseRequestActor]
-  val router = system.actorOf(props)
-  //for(i <- 1 to 10)
-  router ! (no_of_request, Customer("Prashant", "Delhi", "1800237976832547", "8457033478"))
-  router ! (no_of_request, Customer("Kunal", "Delhi", "1800237976832547", "8457033478"))
-  router ! (no_of_request, Customer("abc", "Delhi", "1800237976832547", "8457033478"))
-  router ! (no_of_request, Customer("Akhil", "Delhi", "1900234576876594", "8877033455"))
-  router ! (no_of_request, Customer("Mahesh", "Delhi", "1800237976832547", "8457033478"))
-
-}
+//object RetailOutlet extends App {
+//  val no_of_request = 1
+//  val system = ActorSystem("Book")
+//  val props = Props[PurchaseRequestActor]
+//  val router = system.actorOf(props)
+//  //for(i <- 1 to 10)
+//  router ! (no_of_request, Customer("Prashant", "Delhi", "1800237976832547", "8457033478"))
+//  router ! (no_of_request, Customer("Kunal", "Delhi", "1800237976832547", "8457033478"))
+//  router ! (no_of_request, Customer("abc", "Delhi", "1800237976832547", "8457033478"))
+//  router ! (no_of_request, Customer("Akhil", "Delhi", "1900234576876594", "8877033455"))
+//  router ! (no_of_request, Customer("Mahesh", "Delhi", "1800237976832547", "8457033478"))
+//
+//}
 
 case class Customer(cus_name: String, address: String, credit_card_no: String, mobile_no: String)
 
@@ -72,6 +71,7 @@ class ValidationActor extends Actor with ActorLogging {
         log.info(s"Sorry Out of stock....!!")
       }
     }
+    case _=>log.info("Invalid UserDetails")
   }
 }
 
@@ -85,5 +85,6 @@ class PurchaseActor extends Actor with ActorLogging {
       log.info(s"Mobile= ${user.mobile_no}")
       sender() ! "Ok"
     }
+    case _=>log.info("Wrong User Details")
   }
 }

@@ -1,0 +1,1381 @@
+<html>
+      <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title id="title">
+          RetailOutlet.scala.html
+        </title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.20.1/css/theme.default.min.css" type="text/css"/><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.20.1/js/jquery.tablesorter.min.js"></script><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" type="text/css"/><script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script><script type="text/javascript">
+        $(document).ready(function() {$(".tablesorter").tablesorter();});
+      </script>
+        <style>
+          table.codegrid { font-family: monospace; font-size: 12px; width: auto!important; }table.statementlist { width: auto!important; font-size: 13px; } table.codegrid td { padding: 0!important; border: 0!important } table td.linenumber { width: 40px!important; } 
+        </style>
+      </head>
+      <body style="font-family: monospace;">
+        <ul class="nav nav-tabs">
+          <li>
+            <a href="#codegrid" data-toggle="tab">Codegrid</a>
+          </li>
+          <li>
+            <a href="#statementlist" data-toggle="tab">Statement List</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="codegrid">
+            <pre style='font-size: 12pt; font-family: courier;'>1 <span style=''>import akka.actor.{Actor, ActorLogging, ActorRef, ActorSystem, Props}
+</span>2 <span style=''>import com.typesafe.config.ConfigFactory
+</span>3 <span style=''>import akka.pattern.ask
+</span>4 <span style=''>import akka.util.Timeout
+</span>5 <span style=''>import scala.concurrent.duration._
+</span>6 <span style=''>import scala.concurrent.{Await, Future}
+</span>7 <span style=''>
+</span>8 <span style=''>//object RetailOutlet extends App {
+</span>9 <span style=''>//  val no_of_request = 1
+</span>10 <span style=''>//  val system = ActorSystem(&quot;Book&quot;)
+</span>11 <span style=''>//  val props = Props[PurchaseRequestActor]
+</span>12 <span style=''>//  val router = system.actorOf(props)
+</span>13 <span style=''>//  //for(i &lt;- 1 to 10)
+</span>14 <span style=''>//  router ! (no_of_request, Customer(&quot;Prashant&quot;, &quot;Delhi&quot;, &quot;1800237976832547&quot;, &quot;8457033478&quot;))
+</span>15 <span style=''>//  router ! (no_of_request, Customer(&quot;Kunal&quot;, &quot;Delhi&quot;, &quot;1800237976832547&quot;, &quot;8457033478&quot;))
+</span>16 <span style=''>//  router ! (no_of_request, Customer(&quot;abc&quot;, &quot;Delhi&quot;, &quot;1800237976832547&quot;, &quot;8457033478&quot;))
+</span>17 <span style=''>//  router ! (no_of_request, Customer(&quot;Akhil&quot;, &quot;Delhi&quot;, &quot;1900234576876594&quot;, &quot;8877033455&quot;))
+</span>18 <span style=''>//  router ! (no_of_request, Customer(&quot;Mahesh&quot;, &quot;Delhi&quot;, &quot;1800237976832547&quot;, &quot;8457033478&quot;))
+</span>19 <span style=''>//
+</span>20 <span style=''>//}
+</span>21 <span style=''>
+</span>22 <span style=''>case class Customer(cus_name: String, address: String, credit_card_no: String, mobile_no: String)
+</span>23 <span style=''>
+</span>24 <span style=''>class PurchaseRequestActor extends Actor with ActorLogging {
+</span>25 <span style=''>
+</span>26 <span style=''>  val validate = </span><span style='background: #AEF1AE'>context.actorOf(Props[ValidationActor])</span><span style=''>
+</span>27 <span style=''>
+</span>28 <span style=''>  override def receive = {
+</span>29 <span style=''>
+</span>30 <span style=''>    case (no_of_request, user: Customer) =&gt; {
+</span>31 <span style=''>
+</span>32 <span style=''>      if (</span><span style='background: #AEF1AE'>no_of_request == 1</span><span style=''>) </span><span style='background: #AEF1AE'>{
+</span>33 <span style=''></span><span style='background: #AEF1AE'>        log.info(&quot;Request Initiated&quot;)
+</span>34 <span style=''></span><span style='background: #AEF1AE'>        validate ! user
+</span>35 <span style=''></span><span style='background: #AEF1AE'>      }</span><span style=''>
+</span>36 <span style=''>      else {
+</span>37 <span style=''>        </span><span style='background: #AEF1AE'>log.info(&quot;Sry you cannot book more than one...&quot;)</span><span style=''>
+</span>38 <span style=''>      }
+</span>39 <span style=''>    }
+</span>40 <span style=''>    case _=&gt;</span><span style='background: #AEF1AE'>log.info(&quot;Unknown Request&quot;)</span><span style=''>
+</span>41 <span style=''>  }
+</span>42 <span style=''>}
+</span>43 <span style=''>
+</span>44 <span style=''>class ValidationActor extends Actor with ActorLogging {
+</span>45 <span style=''>
+</span>46 <span style=''>  var count = </span><span style='background: #AEF1AE'>3</span><span style=''>
+</span>47 <span style=''>  val config = </span><span style='background: #AEF1AE'>ConfigFactory.parseString(
+</span>48 <span style=''></span><span style='background: #AEF1AE'>    &quot;&quot;&quot;
+</span>49 <span style=''></span><span style='background: #AEF1AE'>      |akka.actor.deployment {
+</span>50 <span style=''></span><span style='background: #AEF1AE'>      | /poolRouter {
+</span>51 <span style=''></span><span style='background: #AEF1AE'>      |   router = round-robin-pool
+</span>52 <span style=''></span><span style='background: #AEF1AE'>      |   nr-of-instances = 500
+</span>53 <span style=''></span><span style='background: #AEF1AE'>      | }
+</span>54 <span style=''></span><span style='background: #AEF1AE'>      |}
+</span>55 <span style=''></span><span style='background: #AEF1AE'>    &quot;&quot;&quot;.stripMargin
+</span>56 <span style=''></span><span style='background: #AEF1AE'>  )</span><span style=''>
+</span>57 <span style=''>
+</span>58 <span style=''>  val purchase = </span><span style='background: #AEF1AE'>context.actorOf(Props[PurchaseActor], &quot;poolRouter&quot;)</span><span style=''>
+</span>59 <span style=''>
+</span>60 <span style=''>  override def receive = {
+</span>61 <span style=''>
+</span>62 <span style=''>    case user: Customer =&gt; {
+</span>63 <span style=''>
+</span>64 <span style=''>      if (</span><span style='background: #AEF1AE'>count &gt; 0</span><span style=''>) </span><span style='background: #AEF1AE'>{
+</span>65 <span style=''></span><span style='background: #AEF1AE'>        count -= 1
+</span>66 <span style=''></span><span style='background: #AEF1AE'>        implicit val timeout = Timeout(1000 seconds)
+</span>67 <span style=''></span><span style='background: #AEF1AE'>        val f = purchase ? user
+</span>68 <span style=''></span><span style='background: #AEF1AE'>        Await.result(f, timeout.duration)
+</span>69 <span style=''></span><span style='background: #AEF1AE'>      }</span><span style=''>
+</span>70 <span style=''>      else {
+</span>71 <span style=''>        </span><span style='background: #AEF1AE'>log.info(s&quot;Sorry Out of stock....!!&quot;)</span><span style=''>
+</span>72 <span style=''>      }
+</span>73 <span style=''>    }
+</span>74 <span style=''>    case _=&gt;</span><span style='background: #AEF1AE'>log.info(&quot;Invalid UserDetails&quot;)</span><span style=''>
+</span>75 <span style=''>  }
+</span>76 <span style=''>}
+</span>77 <span style=''>
+</span>78 <span style=''>class PurchaseActor extends Actor with ActorLogging {
+</span>79 <span style=''>
+</span>80 <span style=''>  override def receive = {
+</span>81 <span style=''>    case user: Customer =&gt; {
+</span>82 <span style=''>      </span><span style='background: #AEF1AE'>log.info(&quot;Thanks for booking !!, your details are...&quot;)</span><span style=''>
+</span>83 <span style=''>      </span><span style='background: #AEF1AE'>log.info(s&quot;Name= ${user.cus_name}&quot;)</span><span style=''>
+</span>84 <span style=''>      </span><span style='background: #AEF1AE'>log.info(s&quot;Address=${user.address}&quot;)</span><span style=''>
+</span>85 <span style=''>      </span><span style='background: #AEF1AE'>log.info(s&quot;Mobile= ${user.mobile_no}&quot;)</span><span style=''>
+</span>86 <span style=''>      </span><span style='background: #AEF1AE'>sender() ! &quot;Ok&quot;</span><span style=''>
+</span>87 <span style=''>    }
+</span>88 <span style=''>    case _=&gt;</span><span style='background: #AEF1AE'>log.info(&quot;Wrong User Details&quot;)</span><span style=''>
+</span>89 <span style=''>  }
+</span>90 <span style=''>}
+</span></pre>
+          </div>
+          <div class="tab-pane" id="statementlist">
+            <table cellspacing="0" cellpadding="0" class="table statementlist">
+      <tr>
+        <th>Line</th>
+        <th>Stmt Id</th>
+        <th>Pos</th>
+        <th>Tree</th>
+        <th>Symbol</th>
+        <th>Code</th>
+      </tr><tr>
+        <td>
+          26
+        </td>
+        <td>
+          2
+        </td>
+        <td>
+          1085
+          -
+          1124
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          akka.actor.ActorRefFactory.actorOf
+        </td>
+        <td style="background: #AEF1AE">
+          PurchaseRequestActor.this.context.actorOf(akka.actor.Props.apply[ValidationActor]()((ClassTag.apply[ValidationActor](classOf[ValidationActor]): scala.reflect.ClassTag[ValidationActor])))
+        </td>
+      </tr><tr>
+        <td>
+          26
+        </td>
+        <td>
+          1
+        </td>
+        <td>
+          1101
+          -
+          1123
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          akka.actor.Props.apply
+        </td>
+        <td style="background: #AEF1AE">
+          akka.actor.Props.apply[ValidationActor]()((ClassTag.apply[ValidationActor](classOf[ValidationActor]): scala.reflect.ClassTag[ValidationActor]))
+        </td>
+      </tr><tr>
+        <td>
+          28
+        </td>
+        <td>
+          12
+        </td>
+        <td>
+          1151
+          -
+          1151
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          PurchaseRequestActor.$anonfun.&lt;init&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          new $anonfun()
+        </td>
+      </tr><tr>
+        <td>
+          32
+        </td>
+        <td>
+          8
+        </td>
+        <td>
+          1231
+          -
+          1302
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          {
+  PurchaseRequestActor.this.log.info(&quot;Request Initiated&quot;);
+  actor.this.`package`.actorRef2Scala(PurchaseRequestActor.this.validate).!(user)(PurchaseRequestActor.this.self)
+}
+        </td>
+      </tr><tr>
+        <td>
+          32
+        </td>
+        <td>
+          3
+        </td>
+        <td>
+          1211
+          -
+          1229
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Any.==
+        </td>
+        <td style="background: #AEF1AE">
+          no_of_request.==(1)
+        </td>
+      </tr><tr>
+        <td>
+          33
+        </td>
+        <td>
+          4
+        </td>
+        <td>
+          1241
+          -
+          1270
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          akka.event.LoggingAdapter.info
+        </td>
+        <td style="background: #AEF1AE">
+          PurchaseRequestActor.this.log.info(&quot;Request Initiated&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          34
+        </td>
+        <td>
+          5
+        </td>
+        <td>
+          1279
+          -
+          1287
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          PurchaseRequestActor.validate
+        </td>
+        <td style="background: #AEF1AE">
+          PurchaseRequestActor.this.validate
+        </td>
+      </tr><tr>
+        <td>
+          34
+        </td>
+        <td>
+          7
+        </td>
+        <td>
+          1279
+          -
+          1294
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          akka.actor.ScalaActorRef.!
+        </td>
+        <td style="background: #AEF1AE">
+          actor.this.`package`.actorRef2Scala(PurchaseRequestActor.this.validate).!(user)(PurchaseRequestActor.this.self)
+        </td>
+      </tr><tr>
+        <td>
+          34
+        </td>
+        <td>
+          6
+        </td>
+        <td>
+          1288
+          -
+          1288
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          akka.actor.Actor.self
+        </td>
+        <td style="background: #AEF1AE">
+          PurchaseRequestActor.this.self
+        </td>
+      </tr><tr>
+        <td>
+          37
+        </td>
+        <td>
+          10
+        </td>
+        <td>
+          1324
+          -
+          1372
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          akka.event.LoggingAdapter.info
+        </td>
+        <td style="background: #AEF1AE">
+          PurchaseRequestActor.this.log.info(&quot;Sry you cannot book more than one...&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          37
+        </td>
+        <td>
+          9
+        </td>
+        <td>
+          1324
+          -
+          1372
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          akka.event.LoggingAdapter.info
+        </td>
+        <td style="background: #AEF1AE">
+          PurchaseRequestActor.this.log.info(&quot;Sry you cannot book more than one...&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          40
+        </td>
+        <td>
+          11
+        </td>
+        <td>
+          1399
+          -
+          1426
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          akka.event.LoggingAdapter.info
+        </td>
+        <td style="background: #AEF1AE">
+          PurchaseRequestActor.this.log.info(&quot;Unknown Request&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          46
+        </td>
+        <td>
+          13
+        </td>
+        <td>
+          1505
+          -
+          1506
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          3
+        </td>
+      </tr><tr>
+        <td>
+          47
+        </td>
+        <td>
+          16
+        </td>
+        <td>
+          1522
+          -
+          1720
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.typesafe.config.ConfigFactory.parseString
+        </td>
+        <td style="background: #AEF1AE">
+          com.typesafe.config.ConfigFactory.parseString(scala.Predef.augmentString(&quot;\n      |akka.actor.deployment {\n      | /poolRouter {\n      |   router = round-robin-pool\n      |   nr-of-instances = 500\n      | }\n      |}\n    &quot;).stripMargin)
+        </td>
+      </tr><tr>
+        <td>
+          48
+        </td>
+        <td>
+          14
+        </td>
+        <td>
+          1553
+          -
+          1704
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          &quot;\n      |akka.actor.deployment {\n      | /poolRouter {\n      |   router = round-robin-pool\n      |   nr-of-instances = 500\n      | }\n      |}\n    &quot;
+        </td>
+      </tr><tr>
+        <td>
+          55
+        </td>
+        <td>
+          15
+        </td>
+        <td>
+          1553
+          -
+          1716
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scala.collection.immutable.StringLike.stripMargin
+        </td>
+        <td style="background: #AEF1AE">
+          scala.Predef.augmentString(&quot;\n      |akka.actor.deployment {\n      | /poolRouter {\n      |   router = round-robin-pool\n      |   nr-of-instances = 500\n      | }\n      |}\n    &quot;).stripMargin
+        </td>
+      </tr><tr>
+        <td>
+          58
+        </td>
+        <td>
+          17
+        </td>
+        <td>
+          1755
+          -
+          1775
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          akka.actor.Props.apply
+        </td>
+        <td style="background: #AEF1AE">
+          akka.actor.Props.apply[PurchaseActor]()((ClassTag.apply[PurchaseActor](classOf[PurchaseActor]): scala.reflect.ClassTag[PurchaseActor]))
+        </td>
+      </tr><tr>
+        <td>
+          58
+        </td>
+        <td>
+          19
+        </td>
+        <td>
+          1739
+          -
+          1790
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          akka.actor.ActorRefFactory.actorOf
+        </td>
+        <td style="background: #AEF1AE">
+          ValidationActor.this.context.actorOf(akka.actor.Props.apply[PurchaseActor]()((ClassTag.apply[PurchaseActor](classOf[PurchaseActor]): scala.reflect.ClassTag[PurchaseActor])), &quot;poolRouter&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          58
+        </td>
+        <td>
+          18
+        </td>
+        <td>
+          1777
+          -
+          1789
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          &quot;poolRouter&quot;
+        </td>
+      </tr><tr>
+        <td>
+          60
+        </td>
+        <td>
+          37
+        </td>
+        <td>
+          1817
+          -
+          1817
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          ValidationActor.$anonfun.&lt;init&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          new $anonfun()
+        </td>
+      </tr><tr>
+        <td>
+          64
+        </td>
+        <td>
+          32
+        </td>
+        <td>
+          1871
+          -
+          2026
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          {
+  ValidationActor.this.count_=(ValidationActor.this.count.-(1));
+  implicit val timeout: akka.util.Timeout = akka.util.Timeout.apply(scala.concurrent.duration.`package`.DurationInt(1000).seconds);
+  val f: scala.concurrent.Future[Any] = akka.pattern.`package`.ask(ValidationActor.this.purchase).?(user)(timeout, ValidationActor.this.self);
+  {
+    scala.concurrent.Await.result[Any](f, timeout.duration);
+    ()
+  }
+}
+        </td>
+      </tr><tr>
+        <td>
+          64
+        </td>
+        <td>
+          20
+        </td>
+        <td>
+          1860
+          -
+          1869
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Int.&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          ValidationActor.this.count.&gt;(0)
+        </td>
+      </tr><tr>
+        <td>
+          65
+        </td>
+        <td>
+          22
+        </td>
+        <td>
+          1881
+          -
+          1891
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          ValidationActor.count_=
+        </td>
+        <td style="background: #AEF1AE">
+          ValidationActor.this.count_=(ValidationActor.this.count.-(1))
+        </td>
+      </tr><tr>
+        <td>
+          65
+        </td>
+        <td>
+          21
+        </td>
+        <td>
+          1881
+          -
+          1891
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Int.-
+        </td>
+        <td style="background: #AEF1AE">
+          ValidationActor.this.count.-(1)
+        </td>
+      </tr><tr>
+        <td>
+          66
+        </td>
+        <td>
+          23
+        </td>
+        <td>
+          1931
+          -
+          1935
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          1000
+        </td>
+      </tr><tr>
+        <td>
+          66
+        </td>
+        <td>
+          25
+        </td>
+        <td>
+          1923
+          -
+          1944
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          akka.util.Timeout.apply
+        </td>
+        <td style="background: #AEF1AE">
+          akka.util.Timeout.apply(scala.concurrent.duration.`package`.DurationInt(1000).seconds)
+        </td>
+      </tr><tr>
+        <td>
+          66
+        </td>
+        <td>
+          24
+        </td>
+        <td>
+          1931
+          -
+          1943
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scala.concurrent.duration.DurationConversions.seconds
+        </td>
+        <td style="background: #AEF1AE">
+          scala.concurrent.duration.`package`.DurationInt(1000).seconds
+        </td>
+      </tr><tr>
+        <td>
+          67
+        </td>
+        <td>
+          26
+        </td>
+        <td>
+          1961
+          -
+          1969
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          ValidationActor.purchase
+        </td>
+        <td style="background: #AEF1AE">
+          ValidationActor.this.purchase
+        </td>
+      </tr><tr>
+        <td>
+          67
+        </td>
+        <td>
+          28
+        </td>
+        <td>
+          1961
+          -
+          1976
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          akka.pattern.AskableActorRef.?
+        </td>
+        <td style="background: #AEF1AE">
+          akka.pattern.`package`.ask(ValidationActor.this.purchase).?(user)(timeout, ValidationActor.this.self)
+        </td>
+      </tr><tr>
+        <td>
+          67
+        </td>
+        <td>
+          27
+        </td>
+        <td>
+          1970
+          -
+          1970
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          akka.actor.Actor.self
+        </td>
+        <td style="background: #AEF1AE">
+          ValidationActor.this.self
+        </td>
+      </tr><tr>
+        <td>
+          68
+        </td>
+        <td>
+          29
+        </td>
+        <td>
+          2001
+          -
+          2017
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          akka.util.Timeout.duration
+        </td>
+        <td style="background: #AEF1AE">
+          timeout.duration
+        </td>
+      </tr><tr>
+        <td>
+          68
+        </td>
+        <td>
+          31
+        </td>
+        <td>
+          1997
+          -
+          1997
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          ()
+        </td>
+      </tr><tr>
+        <td>
+          68
+        </td>
+        <td>
+          30
+        </td>
+        <td>
+          1985
+          -
+          2018
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.concurrent.Await.result
+        </td>
+        <td style="background: #AEF1AE">
+          scala.concurrent.Await.result[Any](f, timeout.duration)
+        </td>
+      </tr><tr>
+        <td>
+          71
+        </td>
+        <td>
+          35
+        </td>
+        <td>
+          2048
+          -
+          2085
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          akka.event.LoggingAdapter.info
+        </td>
+        <td style="background: #AEF1AE">
+          ValidationActor.this.log.info(scala.StringContext.apply(&quot;Sorry Out of stock....!!&quot;).s())
+        </td>
+      </tr><tr>
+        <td>
+          71
+        </td>
+        <td>
+          34
+        </td>
+        <td>
+          2048
+          -
+          2085
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          akka.event.LoggingAdapter.info
+        </td>
+        <td style="background: #AEF1AE">
+          ValidationActor.this.log.info(scala.StringContext.apply(&quot;Sorry Out of stock....!!&quot;).s())
+        </td>
+      </tr><tr>
+        <td>
+          71
+        </td>
+        <td>
+          33
+        </td>
+        <td>
+          2057
+          -
+          2084
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.StringContext.s
+        </td>
+        <td style="background: #AEF1AE">
+          scala.StringContext.apply(&quot;Sorry Out of stock....!!&quot;).s()
+        </td>
+      </tr><tr>
+        <td>
+          74
+        </td>
+        <td>
+          36
+        </td>
+        <td>
+          2112
+          -
+          2143
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          akka.event.LoggingAdapter.info
+        </td>
+        <td style="background: #AEF1AE">
+          ValidationActor.this.log.info(&quot;Invalid UserDetails&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          80
+        </td>
+        <td>
+          59
+        </td>
+        <td>
+          2231
+          -
+          2231
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          PurchaseActor.$anonfun.&lt;init&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          new $anonfun()
+        </td>
+      </tr><tr>
+        <td>
+          82
+        </td>
+        <td>
+          38
+        </td>
+        <td>
+          2268
+          -
+          2322
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          akka.event.LoggingAdapter.info
+        </td>
+        <td style="background: #AEF1AE">
+          PurchaseActor.this.log.info(&quot;Thanks for booking !!, your details are...&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          83
+        </td>
+        <td>
+          41
+        </td>
+        <td>
+          2348
+          -
+          2361
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          Customer.cus_name
+        </td>
+        <td style="background: #AEF1AE">
+          user.cus_name
+        </td>
+      </tr><tr>
+        <td>
+          83
+        </td>
+        <td>
+          40
+        </td>
+        <td>
+          2362
+          -
+          2363
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          &quot;&quot;
+        </td>
+      </tr><tr>
+        <td>
+          83
+        </td>
+        <td>
+          43
+        </td>
+        <td>
+          2329
+          -
+          2364
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          akka.event.LoggingAdapter.info
+        </td>
+        <td style="background: #AEF1AE">
+          PurchaseActor.this.log.info(scala.StringContext.apply(&quot;Name= &quot;, &quot;&quot;).s(user.cus_name))
+        </td>
+      </tr><tr>
+        <td>
+          83
+        </td>
+        <td>
+          39
+        </td>
+        <td>
+          2340
+          -
+          2347
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          &quot;Name= &quot;
+        </td>
+      </tr><tr>
+        <td>
+          83
+        </td>
+        <td>
+          42
+        </td>
+        <td>
+          2338
+          -
+          2363
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.StringContext.s
+        </td>
+        <td style="background: #AEF1AE">
+          scala.StringContext.apply(&quot;Name= &quot;, &quot;&quot;).s(user.cus_name)
+        </td>
+      </tr><tr>
+        <td>
+          84
+        </td>
+        <td>
+          44
+        </td>
+        <td>
+          2382
+          -
+          2391
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          &quot;Address=&quot;
+        </td>
+      </tr><tr>
+        <td>
+          84
+        </td>
+        <td>
+          47
+        </td>
+        <td>
+          2380
+          -
+          2406
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.StringContext.s
+        </td>
+        <td style="background: #AEF1AE">
+          scala.StringContext.apply(&quot;Address=&quot;, &quot;&quot;).s(user.address)
+        </td>
+      </tr><tr>
+        <td>
+          84
+        </td>
+        <td>
+          46
+        </td>
+        <td>
+          2392
+          -
+          2404
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          Customer.address
+        </td>
+        <td style="background: #AEF1AE">
+          user.address
+        </td>
+      </tr><tr>
+        <td>
+          84
+        </td>
+        <td>
+          45
+        </td>
+        <td>
+          2405
+          -
+          2406
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          &quot;&quot;
+        </td>
+      </tr><tr>
+        <td>
+          84
+        </td>
+        <td>
+          48
+        </td>
+        <td>
+          2371
+          -
+          2407
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          akka.event.LoggingAdapter.info
+        </td>
+        <td style="background: #AEF1AE">
+          PurchaseActor.this.log.info(scala.StringContext.apply(&quot;Address=&quot;, &quot;&quot;).s(user.address))
+        </td>
+      </tr><tr>
+        <td>
+          85
+        </td>
+        <td>
+          50
+        </td>
+        <td>
+          2450
+          -
+          2451
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          &quot;&quot;
+        </td>
+      </tr><tr>
+        <td>
+          85
+        </td>
+        <td>
+          53
+        </td>
+        <td>
+          2414
+          -
+          2452
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          akka.event.LoggingAdapter.info
+        </td>
+        <td style="background: #AEF1AE">
+          PurchaseActor.this.log.info(scala.StringContext.apply(&quot;Mobile= &quot;, &quot;&quot;).s(user.mobile_no))
+        </td>
+      </tr><tr>
+        <td>
+          85
+        </td>
+        <td>
+          49
+        </td>
+        <td>
+          2425
+          -
+          2434
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          &quot;Mobile= &quot;
+        </td>
+      </tr><tr>
+        <td>
+          85
+        </td>
+        <td>
+          52
+        </td>
+        <td>
+          2423
+          -
+          2451
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.StringContext.s
+        </td>
+        <td style="background: #AEF1AE">
+          scala.StringContext.apply(&quot;Mobile= &quot;, &quot;&quot;).s(user.mobile_no)
+        </td>
+      </tr><tr>
+        <td>
+          85
+        </td>
+        <td>
+          51
+        </td>
+        <td>
+          2435
+          -
+          2449
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          Customer.mobile_no
+        </td>
+        <td style="background: #AEF1AE">
+          user.mobile_no
+        </td>
+      </tr><tr>
+        <td>
+          86
+        </td>
+        <td>
+          56
+        </td>
+        <td>
+          2468
+          -
+          2468
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          akka.actor.Actor.self
+        </td>
+        <td style="background: #AEF1AE">
+          PurchaseActor.this.self
+        </td>
+      </tr><tr>
+        <td>
+          86
+        </td>
+        <td>
+          55
+        </td>
+        <td>
+          2470
+          -
+          2474
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          &quot;Ok&quot;
+        </td>
+      </tr><tr>
+        <td>
+          86
+        </td>
+        <td>
+          54
+        </td>
+        <td>
+          2459
+          -
+          2467
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          akka.actor.Actor.sender
+        </td>
+        <td style="background: #AEF1AE">
+          PurchaseActor.this.sender()
+        </td>
+      </tr><tr>
+        <td>
+          86
+        </td>
+        <td>
+          57
+        </td>
+        <td>
+          2459
+          -
+          2474
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          akka.actor.ScalaActorRef.!
+        </td>
+        <td style="background: #AEF1AE">
+          actor.this.`package`.actorRef2Scala(PurchaseActor.this.sender()).!(&quot;Ok&quot;)(PurchaseActor.this.self)
+        </td>
+      </tr><tr>
+        <td>
+          88
+        </td>
+        <td>
+          58
+        </td>
+        <td>
+          2493
+          -
+          2523
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          akka.event.LoggingAdapter.info
+        </td>
+        <td style="background: #AEF1AE">
+          PurchaseActor.this.log.info(&quot;Wrong User Details&quot;)
+        </td>
+      </tr>
+    </table>
+          </div>
+        </div>
+      </body>
+    </html>

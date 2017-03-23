@@ -6,8 +6,8 @@
 		module="akka2_2.12"
 		revision="1.0"
 		conf="test-internal"
-		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool"
-		date="20170322182219"/>
+		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool, scoveragePlugin"
+		date="20170323111215"/>
 	<dependencies>
 		<module organisation="log4j" name="log4j">
 			<revision name="1.2.17" status="release" pubdate="20120526151339" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://logging.apache.org/log4j/1.2/" downloaded="false" searched="false" default="false" conf="default, compile, runtime, default(compile), master" position="10">

@@ -1,0 +1,226 @@
+<scoverage 
+statement-count="59" statements-invoked="59" statement-rate="100.00" branch-rate="100.00" version="1.0" timestamp="1490247737157">
+    <packages>
+        <package name="&lt;empty&gt;" statement-count="59" statements-invoked="59" statement-rate="100.00">
+            <classes>
+                <class 
+                name="PurchaseActor" filename="RetailOutlet.scala" statement-count="22" statements-invoked="22" statement-rate="100.00" branch-rate="100.00">
+                    <methods>
+                        <method 
+                        name="&lt;empty&gt;/PurchaseActor/receive" statement-count="22" statements-invoked="22" statement-rate="100.00" branch-rate="100.00">
+                            <statements>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseActor" class-type="Class" full-class-name="PurchaseActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="2231" end="2231" line="80" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseActor" class-type="Class" full-class-name="PurchaseActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="2450" end="2451" line="85" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseActor" class-type="Class" full-class-name="PurchaseActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="2348" end="2361" line="83" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseActor" class-type="Class" full-class-name="PurchaseActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="2414" end="2452" line="85" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseActor" class-type="Class" full-class-name="PurchaseActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="2382" end="2391" line="84" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseActor" class-type="Class" full-class-name="PurchaseActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="2468" end="2468" line="86" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseActor" class-type="Class" full-class-name="PurchaseActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="2380" end="2406" line="84" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseActor" class-type="Class" full-class-name="PurchaseActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="2268" end="2322" line="82" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseActor" class-type="Class" full-class-name="PurchaseActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="2392" end="2404" line="84" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseActor" class-type="Class" full-class-name="PurchaseActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="2470" end="2474" line="86" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseActor" class-type="Class" full-class-name="PurchaseActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="2493" end="2523" line="88" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseActor" class-type="Class" full-class-name="PurchaseActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="2425" end="2434" line="85" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseActor" class-type="Class" full-class-name="PurchaseActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="2362" end="2363" line="83" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseActor" class-type="Class" full-class-name="PurchaseActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="2423" end="2451" line="85" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseActor" class-type="Class" full-class-name="PurchaseActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="2329" end="2364" line="83" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseActor" class-type="Class" full-class-name="PurchaseActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="2459" end="2467" line="86" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseActor" class-type="Class" full-class-name="PurchaseActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="2405" end="2406" line="84" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseActor" class-type="Class" full-class-name="PurchaseActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="2459" end="2474" line="86" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseActor" class-type="Class" full-class-name="PurchaseActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="2371" end="2407" line="84" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseActor" class-type="Class" full-class-name="PurchaseActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="2340" end="2347" line="83" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseActor" class-type="Class" full-class-name="PurchaseActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="2338" end="2363" line="83" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseActor" class-type="Class" full-class-name="PurchaseActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="2435" end="2449" line="85" branch="false" invocation-count="1" ignored="false">
+</statement>
+                            </statements>
+</method>
+                    </methods>
+</class>
+                <class 
+                name="ValidationActor" filename="RetailOutlet.scala" statement-count="25" statements-invoked="25" statement-rate="100.00" branch-rate="100.00">
+                    <methods>
+                        <method 
+                        name="&lt;empty&gt;/ValidationActor/receive" statement-count="18" statements-invoked="18" statement-rate="100.00" branch-rate="100.00">
+                            <statements>
+                                <statement 
+                                package="&lt;empty&gt;" class="ValidationActor" class-type="Class" full-class-name="ValidationActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="1931" end="1935" line="66" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="ValidationActor" class-type="Class" full-class-name="ValidationActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="1871" end="2026" line="64" branch="true" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="ValidationActor" class-type="Class" full-class-name="ValidationActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="2048" end="2085" line="71" branch="true" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="ValidationActor" class-type="Class" full-class-name="ValidationActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="1961" end="1969" line="67" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="ValidationActor" class-type="Class" full-class-name="ValidationActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="2001" end="2017" line="68" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="ValidationActor" class-type="Class" full-class-name="ValidationActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="1860" end="1869" line="64" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="ValidationActor" class-type="Class" full-class-name="ValidationActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="1881" end="1891" line="65" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="ValidationActor" class-type="Class" full-class-name="ValidationActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="1997" end="1997" line="68" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="ValidationActor" class-type="Class" full-class-name="ValidationActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="1923" end="1944" line="66" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="ValidationActor" class-type="Class" full-class-name="ValidationActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="2048" end="2085" line="71" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="ValidationActor" class-type="Class" full-class-name="ValidationActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="1817" end="1817" line="60" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="ValidationActor" class-type="Class" full-class-name="ValidationActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="1961" end="1976" line="67" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="ValidationActor" class-type="Class" full-class-name="ValidationActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="1970" end="1970" line="67" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="ValidationActor" class-type="Class" full-class-name="ValidationActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="2112" end="2143" line="74" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="ValidationActor" class-type="Class" full-class-name="ValidationActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="1881" end="1891" line="65" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="ValidationActor" class-type="Class" full-class-name="ValidationActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="1985" end="2018" line="68" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="ValidationActor" class-type="Class" full-class-name="ValidationActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="2057" end="2084" line="71" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="ValidationActor" class-type="Class" full-class-name="ValidationActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="1931" end="1943" line="66" branch="false" invocation-count="1" ignored="false">
+</statement>
+                            </statements>
+</method>
+                        <method 
+                        name="&lt;empty&gt;/ValidationActor/&lt;none&gt;" statement-count="7" statements-invoked="7" statement-rate="100.00" branch-rate="100.00">
+                            <statements>
+                                <statement 
+                                package="&lt;empty&gt;" class="ValidationActor" class-type="Class" full-class-name="ValidationActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="&lt;none&gt;" start="1755" end="1775" line="58" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="ValidationActor" class-type="Class" full-class-name="ValidationActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="&lt;none&gt;" start="1553" end="1704" line="48" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="ValidationActor" class-type="Class" full-class-name="ValidationActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="&lt;none&gt;" start="1505" end="1506" line="46" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="ValidationActor" class-type="Class" full-class-name="ValidationActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="&lt;none&gt;" start="1522" end="1720" line="47" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="ValidationActor" class-type="Class" full-class-name="ValidationActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="&lt;none&gt;" start="1739" end="1790" line="58" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="ValidationActor" class-type="Class" full-class-name="ValidationActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="&lt;none&gt;" start="1777" end="1789" line="58" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="ValidationActor" class-type="Class" full-class-name="ValidationActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="&lt;none&gt;" start="1553" end="1716" line="55" branch="false" invocation-count="1" ignored="false">
+</statement>
+                            </statements>
+</method>
+                    </methods>
+</class>
+                <class 
+                name="PurchaseRequestActor" filename="RetailOutlet.scala" statement-count="12" statements-invoked="12" statement-rate="100.00" branch-rate="100.00">
+                    <methods>
+                        <method 
+                        name="&lt;empty&gt;/PurchaseRequestActor/receive" statement-count="10" statements-invoked="10" statement-rate="100.00" branch-rate="100.00">
+                            <statements>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseRequestActor" class-type="Class" full-class-name="PurchaseRequestActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="1231" end="1302" line="32" branch="true" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseRequestActor" class-type="Class" full-class-name="PurchaseRequestActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="1399" end="1426" line="40" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseRequestActor" class-type="Class" full-class-name="PurchaseRequestActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="1279" end="1287" line="34" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseRequestActor" class-type="Class" full-class-name="PurchaseRequestActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="1241" end="1270" line="33" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseRequestActor" class-type="Class" full-class-name="PurchaseRequestActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="1279" end="1294" line="34" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseRequestActor" class-type="Class" full-class-name="PurchaseRequestActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="1324" end="1372" line="37" branch="true" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseRequestActor" class-type="Class" full-class-name="PurchaseRequestActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="1324" end="1372" line="37" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseRequestActor" class-type="Class" full-class-name="PurchaseRequestActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="1151" end="1151" line="28" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseRequestActor" class-type="Class" full-class-name="PurchaseRequestActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="1211" end="1229" line="32" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseRequestActor" class-type="Class" full-class-name="PurchaseRequestActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="receive" start="1288" end="1288" line="34" branch="false" invocation-count="1" ignored="false">
+</statement>
+                            </statements>
+</method>
+                        <method 
+                        name="&lt;empty&gt;/PurchaseRequestActor/&lt;none&gt;" statement-count="2" statements-invoked="2" statement-rate="100.00" branch-rate="100.00">
+                            <statements>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseRequestActor" class-type="Class" full-class-name="PurchaseRequestActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="&lt;none&gt;" start="1085" end="1124" line="26" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="&lt;empty&gt;" class="PurchaseRequestActor" class-type="Class" full-class-name="PurchaseRequestActor" source="/home/prashant/IdeaProjects/akka2/src/main/scala/RetailOutlet.scala" method="&lt;none&gt;" start="1101" end="1123" line="26" branch="false" invocation-count="1" ignored="false">
+</statement>
+                            </statements>
+</method>
+                    </methods>
+</class>
+            </classes>
+        </package>
+    </packages>
+</scoverage>
